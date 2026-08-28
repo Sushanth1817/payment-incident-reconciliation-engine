@@ -1,0 +1,21 @@
+{
+  "name": "payment-incident-engine",
+  "version": "1.0.0",
+  "description": "Payment Incident and Reconciliation Engine",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "uuid": "^14.0.2"
+  }
+}
