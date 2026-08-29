@@ -11,6 +11,7 @@ const bankRoutes = require("./routes/bank");
 const reconcileRoutes = require("./routes/reconcile");
 const incidentRoutes = require("./routes/incidents");
 const dashboardRoutes = require("./routes/dashboard");
+const aiRoutes = require("./routes/ai");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/bank", bankRoutes);
 app.use("/reconcile", reconcileRoutes);
 app.use("/incidents", incidentRoutes);
 app.use("/dashboard", dashboardRoutes);
+app.use("/ai", aiRoutes);
 
 app.get("/health", (req, res) => {
   res.json({

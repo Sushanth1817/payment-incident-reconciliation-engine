@@ -554,3 +554,151 @@ tr:last-child td {
     padding: 20px;
   }
 }
+.ai-section {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.ai-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.ai-section-header h2 {
+  margin: 0 0 6px;
+}
+
+.ai-section-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  max-width: 620px;
+  line-height: 1.5;
+}
+
+.ai-analyze-button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #111827;
+  color: white;
+  white-space: nowrap;
+}
+
+.ai-analyze-button:hover {
+  opacity: 0.9;
+}
+
+.ai-analyze-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ai-analysis-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  background: #f9fafb;
+}
+
+.ai-analysis-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.ai-analysis-top strong {
+  display: block;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.ai-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.ai-confidence {
+  min-width: 110px;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid #e5e7eb;
+}
+
+.ai-confidence span {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.ai-confidence small {
+  color: #6b7280;
+}
+
+.ai-analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ai-analysis-grid > div {
+  padding: 14px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.ai-analysis-grid p:not(.ai-label) {
+  margin: 8px 0 0;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.ai-safety-note {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #eef2ff;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #3730a3;
+}
+
+@media (max-width: 768px) {
+  .ai-section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ai-analyze-button {
+    width: 100%;
+  }
+
+  .ai-analysis-top {
+    flex-direction: column;
+  }
+
+  .ai-confidence {
+    width: 100%;
+  }
+
+  .ai-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -16,6 +16,8 @@ function App() {
   const [simulatingTimeout, setSimulatingTimeout] = useState(false);
   const [simulatingDebit, setSimulatingDebit] = useState(false);
   const [reconciling, setReconciling] = useState(false);
+  const [analyzingAI, setAnalyzingAI] = useState(false);
+  const [aiAnalysis, setAiAnalysis] = useState(null);
 
   const [systemOnline, setSystemOnline] = useState(false);
   const [error, setError] = useState("");
@@ -208,12 +210,14 @@ function App() {
 
   async function selectPayment(payment) {
     setSelectedPayment(payment);
+    setAiAnalysis(null);
     await loadTimeline(payment.id);
   }
 
   function closePayment() {
     setSelectedPayment(null);
     setTimeline([]);
+    setAiAnalysis(null);
   }
 
   async function markPending() {
@@ -381,6 +385,36 @@ function App() {
       alert(err.message);
     } finally {
       setReconciling(false);
+    }
+  }
+
+  async function analyzeWithAI() {
+    if (!selectedPayment) {
+      return;
+    }
+
+    setAnalyzingAI(true);
+    setAiAnalysis(null);
+
+    try {
+      const response = await fetch(
+        `${API_URL}/ai/analyze/${selectedPayment.id}`,
+        {
+          method: "POST"
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "AI analysis failed");
+      }
+
+      setAiAnalysis(data.analysis);
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setAnalyzingAI(false);
     }
   }
 
@@ -781,6 +815,59 @@ function App() {
               </button>
             </div>
           )}
+
+          <div className="ai-section">
+            <div className="ai-section-header">
+              <div>
+                <h2>AI Incident Analyst</h2>
+                <p>
+                  Gemini analyzes payment, gateway, and bank evidence
+                  without changing the financial state.
+                </p>
+              </div>
+
+              <button
+                className="ai-analyze-button"
+                onClick={analyzeWithAI}
+                disabled={analyzingAI}
+              >
+                {analyzingAI ? "Analyzing..." : "Analyze with AI"}
+              </button>
+            </div>
+
+            {aiAnalysis && (
+              <div className="ai-analysis-card">
+                <div className="ai-analysis-top">
+                  <div>
+                    <p className="ai-label">Likely Cause</p>
+                    <strong>{aiAnalysis.likely_cause}</strong>
+                  </div>
+
+                  <div className="ai-confidence">
+                    <span>{aiAnalysis.confidence}%</span>
+                    <small>Confidence</small>
+                  </div>
+                </div>
+
+                <div className="ai-analysis-grid">
+                  <div>
+                    <p className="ai-label">Evidence Summary</p>
+                    <p>{aiAnalysis.evidence_summary}</p>
+                  </div>
+
+                  <div>
+                    <p className="ai-label">Recommended Action</p>
+                    <p>{aiAnalysis.recommended_action}</p>
+                  </div>
+                </div>
+
+                <div className="ai-safety-note">
+                  AI is advisory only. Payment state changes are handled
+                  by the deterministic reconciliation engine.
+                </div>
+              </div>
+            )}
+          </div>
 
           <div className="timeline-section">
             <h2>Payment Timeline</h2>
