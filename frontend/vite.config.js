@@ -6,7 +6,7 @@ export default defineConfig({
   preview: {
     host: "0.0.0.0",
     allowedHosts: [
-      "easygoing-dream-production.up.railway.app"
+      "ai-payment-reconciliation.up.railway.app"
     ]
   }
 });
